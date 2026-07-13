@@ -11,6 +11,8 @@
       --ms-light: #f3f9ff;
       --ms-accent: #50c7f5;
       --ms-purple: #5c2d91;
+      --ms-green: #107c10;
+      --ms-edu: #005b70;
       --card-bg: #ffffff;
       --text-main: #1f2d3d;
       --text-sub: #4a5568;
@@ -90,6 +92,10 @@
       border-bottom: 3px solid var(--ms-blue);
       margin-bottom: 28px;
     }
+    section.miee-section > h2 {
+      color: var(--ms-edu);
+      border-bottom-color: var(--ms-edu);
+    }
 
     /* ── Cards ── */
     .card-grid {
@@ -136,6 +142,7 @@
       font-weight: 700; font-size: 0.95rem;
       flex-shrink: 0;
     }
+    .step-num.edu { background: var(--ms-edu); }
     .step-text h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
     .step-text p  { font-size: 0.9rem; color: var(--text-sub); }
 
@@ -195,6 +202,73 @@
       margin-top: 16px;
     }
     .info-box strong { display: block; margin-bottom: 4px; }
+    .info-box.edu-box {
+      background: #e6f7f9;
+      border-left-color: var(--ms-edu);
+      color: #003d4d;
+    }
+
+    /* ── MIEE Hero Band ── */
+    .miee-band {
+      background: linear-gradient(135deg, #005b70 0%, #00897b 100%);
+      border-radius: 12px;
+      padding: 32px 28px;
+      color: #fff;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .miee-band-icon { font-size: 3.5rem; flex-shrink: 0; }
+    .miee-band h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
+    .miee-band p  { font-size: 0.95rem; opacity: 0.9; max-width: 620px; }
+
+    /* ── MIEE Level table ── */
+    .miee-table { width: 100%; border-collapse: collapse; }
+    .miee-table th {
+      background: var(--ms-edu);
+      color: #fff;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    .miee-table td { padding: 12px 16px; font-size: 0.9rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .miee-table tr:last-child td { border-bottom: none; }
+    .miee-table tr:nth-child(even) td { background: #f0f9fa; }
+    .miee-table .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .badge-educator { background: #e0f4f6; color: #005b70; }
+    .badge-fellow   { background: #fff3e6; color: #c35f00; }
+    .badge-school   { background: #e8f5e9; color: #1b5e20; }
+
+    /* ── Learning path list ── */
+    .lp-list { list-style: none; }
+    .lp-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: #fff;
+      border: 1px solid #c8e8ed;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+    }
+    .lp-num {
+      min-width: 32px; height: 32px;
+      background: var(--ms-edu);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .lp-text a  { color: var(--ms-edu); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+    .lp-text a:hover { text-decoration: underline; }
+    .lp-text p  { font-size: 0.85rem; color: var(--text-sub); margin-top: 2px; }
 
     /* ── Resources ── */
     .resource-list { list-style: none; }
@@ -221,6 +295,7 @@
     @media (max-width: 600px) {
       header { padding: 48px 18px 42px; }
       main   { padding: 36px 16px 60px; }
+      .miee-band { padding: 24px 18px; }
     }
   </style>
 </head>
@@ -425,6 +500,162 @@
     </div>
   </section>
 
+  <!-- ══════════════════ 8. MIEE 안내 (신규) ══════════════════ -->
+  <section class="miee-section">
+    <h2>🏅 MIEE (Microsoft Innovative Educator Expert) 신청 및 갱신 방법</h2>
+
+    <!-- MIEE Hero Band -->
+    <div class="miee-band">
+      <div class="miee-band-icon">🎓</div>
+      <div>
+        <h3>Microsoft Innovative Educator Expert (MIEE)란?</h3>
+        <p>
+          혁신적인 교수법과 Microsoft 기술을 활용해 학생 참여·창의력·협업을 증진하는 교육자에게 부여되는
+          Microsoft 공인 전문가 프로그램입니다. 현재는 <strong>Microsoft Elevate for Educators</strong> 프로그램으로
+          확장·통합되어 운영되고 있습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 커뮤니티 등급 -->
+    <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:16px;color:var(--ms-edu);">📊 커뮤니티 등급 및 종류</h3>
+    <table class="miee-table" style="margin-bottom:32px;">
+      <thead>
+        <tr>
+          <th>등급</th>
+          <th>대상</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-educator">🌟 Elevate Educator</span></td>
+          <td>교육자 (개인)</td>
+          <td>Microsoft 도구와 혁신적 교수법으로 학습 경험을 향상시키는 교육자</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-fellow">🔥 Elevate Fellow</span></td>
+          <td>교육자 (선발)</td>
+          <td>전문성과 인사이트를 적극적으로 공유하며 교육 혁신을 이끄는 소수 전문가 그룹</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-school">🏫 Elevate School</span></td>
+          <td>학교 기관</td>
+          <td>Microsoft 도구를 혁신적으로 활용하는 Showcase School 및 Pathfinder School</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 사전 필수 학습 경로 -->
+    <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:16px;color:var(--ms-edu);">📚 사전 필수 학습 경로 (4가지 완료 필수)</h3>
+    <ul class="lp-list" style="margin-bottom:32px;">
+      <li class="lp-item">
+        <div class="lp-num">1</div>
+        <div class="lp-text">
+          <a href="https://learn.microsoft.com/training/educator-center/" target="_blank">Microsoft Educator Academy</a>
+          <p>교육자를 위한 Microsoft 기술 및 교수법 기초 학습 경로</p>
+        </div>
+      </li>
+      <li class="lp-item">
+        <div class="lp-num">2</div>
+        <div class="lp-text">
+          <a href="https://learn.microsoft.com/training/paths/master-microsoft-teams-learning-environment/" target="_blank">Master Microsoft Teams for Any Learning Environment</a>
+          <p>교육 환경에서 Microsoft Teams를 효과적으로 활용하는 방법</p>
+        </div>
+      </li>
+      <li class="lp-item">
+        <div class="lp-num">3</div>
+        <div class="lp-text">
+          <a href="https://learn.microsoft.com/training/paths/21st-century-learning-design/" target="_blank">21st Century Learning Design</a>
+          <p>21세기 학습 디자인 원칙과 학생 중심 교수법</p>
+        </div>
+      </li>
+      <li class="lp-item">
+        <div class="lp-num">4</div>
+        <div class="lp-text">
+          <a href="https://learn.microsoft.com/training/paths/ai-for-educators/" target="_blank">AI for Educators</a>
+          <p>교육자를 위한 AI 기초 및 교실에서의 AI 활용법</p>
+        </div>
+      </li>
+    </ul>
+
+    <!-- 신청 절차 단계 -->
+    <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:16px;color:var(--ms-edu);">🪜 신청 / 갱신 절차 단계별 안내</h3>
+    <div class="step-list" style="margin-bottom:32px;">
+      <div class="step-item">
+        <div class="step-num edu">1</div>
+        <div class="step-text">
+          <h4>Microsoft Learn 프로필 생성</h4>
+          <p><a href="https://learn.microsoft.com" target="_blank">learn.microsoft.com</a>에서 프로필을 만들고,
+          <strong>프로필 사진 → 프로필 → 성취</strong> 메뉴에서 성취 URL을 복사해 둡니다.
+          노미네이션 폼에 해당 URL을 제출해야 합니다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num edu">2</div>
+        <div class="step-text">
+          <h4>필수 학습 경로 4가지 완료</h4>
+          <p>위의 4가지 학습 경로(Microsoft Educator Academy, Teams, 21st Century Learning Design, AI for Educators)를 모두 이수합니다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num edu">3</div>
+        <div class="step-text">
+          <h4>활동 증빙 자료 준비</h4>
+          <p>최소 <strong>2가지 이상의 핵심 Microsoft 도구</strong>(Teams, OneNote, Forms, Minecraft Education 등)를
+          정기적으로 사용하고 있음을 증명하는 자료를 준비합니다.
+          혁신적 교수 사례, 학생 참여 성과, 교육 커뮤니티 기여 내용을 정리합니다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num edu">4</div>
+        <div class="step-text">
+          <h4>노미네이션 폼 작성 및 제출</h4>
+          <p>노미네이션은 <strong>연 1회</strong>만 열립니다 (예: 매년 5월~6월 중).
+          응답 작성 시 생성형 AI를 활용해 수정·개선할 수 있지만,
+          AI가 응답 전체를 생성하도록 의존해서는 안 됩니다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num edu">5</div>
+        <div class="step-text">
+          <h4>배지 및 혜택 수령</h4>
+          <p>선발 후 <strong>Credly</strong>를 통해 디지털 배지가 발급됩니다.
+          MIE Expert Tech Community, 소셜 미디어 템플릿, QuickStart 가이드, 이메일 서명 등
+          전용 리소스가 제공됩니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 갱신 안내 -->
+    <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:14px;color:var(--ms-edu);">🔁 갱신(Renewal) 안내</h3>
+    <div class="card-grid" style="margin-bottom:24px;">
+      <div class="card" style="border-color:#c8e8ed;">
+        <div class="card-icon" style="background:#e0f4f6;">📅</div>
+        <h3>연간 갱신 필수</h3>
+        <p>MIEE 자격은 매년 갱신해야 합니다. 이전 연도 인증서로 자동 갱신되지 않으며, 매 사이클마다 새로 신청해야 합니다.</p>
+      </div>
+      <div class="card" style="border-color:#c8e8ed;">
+        <div class="card-icon" style="background:#e0f4f6;">📋</div>
+        <h3>재신청 시 주의</h3>
+        <p>예전에 MIEE였다가 갱신하지 않은 경우, 이전 인증서 재사용은 불가하며 해당 연도 사이클에 처음부터 다시 신청해야 합니다.</p>
+      </div>
+      <div class="card" style="border-color:#c8e8ed;">
+        <div class="card-icon" style="background:#e0f4f6;">🏆</div>
+        <h3>Credly 배지 활성화</h3>
+        <p>배지 수령 후 Credly에서 활성화가 필요합니다. 문제가 생기면 Microsoft Learn 자격증명 지원 페이지에 문의하세요.</p>
+      </div>
+    </div>
+
+    <div class="info-box edu-box">
+      <strong>ℹ️ Microsoft Elevate for Educators로의 전환</strong>
+      기존 MIEE 프로그램은 <strong>Microsoft Elevate for Educators</strong>로 확장되었습니다.
+      교육자(Educator)와 학교 리더(School Leader) 두 가지 커뮤니티로 나뉘며,
+      AI 리터러시, AI 교실 툴킷, Minecraft AI Skills Program 등 새로운 혜택이 추가되었습니다.
+      자세한 내용은 <a href="https://educate.microsoft.com/MIE" target="_blank">educate.microsoft.com/MIE</a>에서 확인하세요.
+    </div>
+  </section>
+
   <!-- ══════════════════ 7. 학습 리소스 ══════════════════ -->
   <section>
     <h2>📚 Microsoft Learn 학습 리소스</h2>
@@ -471,6 +702,20 @@
           <div style="font-size:.85rem;color:var(--text-sub);">로컬 IDE에서 Copilot Studio 에이전트를 개발하는 방법</div>
         </div>
       </li>
+      <li>
+        🏅
+        <div>
+          <a href="https://educate.microsoft.com/MIE" target="_blank">MIEE / Microsoft Elevate for Educators 공식 페이지</a>
+          <div style="font-size:.85rem;color:var(--text-sub);">MIE Expert 신청, 갱신, 커뮤니티 및 배지 관련 공식 안내</div>
+        </div>
+      </li>
+      <li>
+        🎒
+        <div>
+          <a href="https://learn.microsoft.com/training/educator-center/" target="_blank">Microsoft Learn Educator Center</a>
+          <div style="font-size:.85rem;color:var(--text-sub);">교육자를 위한 AI·Microsoft 365 학습 경로 및 리소스 허브</div>
+        </div>
+      </li>
     </ul>
   </section>
 
@@ -480,7 +725,8 @@
 <footer>
   <p>
     본 페이지의 내용은
-    <a href="https://learn.microsoft.com/microsoft-copilot-studio/" target="_blank">Microsoft Learn – Copilot Studio</a>
+    <a href="https://learn.microsoft.com/microsoft-copilot-studio/" target="_blank">Microsoft Learn – Copilot Studio</a> 및
+    <a href="https://learn.microsoft.com/training/educator-center/" target="_blank">Microsoft Learn Educator Center</a>
     공식 문서를 기반으로 작성되었습니다.
   </p>
   <p style="margin-top:6px;">
