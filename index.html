@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microsoft Copilot Studio 안내</title>
+  <style>
+    :root {
+      --ms-blue: #0078d4;
+      --ms-dark: #1a1a2e;
+      --ms-light: #f3f9ff;
+      --ms-accent: #50c7f5;
+      --ms-purple: #5c2d91;
+      --card-bg: #ffffff;
+      --text-main: #1f2d3d;
+      --text-sub: #4a5568;
+      --border: #dce8f5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--ms-light);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    /* ── Hero ── */
+    header {
+      background: linear-gradient(135deg, #0078d4 0%, #5c2d91 100%);
+      color: #fff;
+      padding: 70px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    header h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    header p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 680px;
+      margin: 0 auto 28px;
+      opacity: 0.9;
+    }
+    .hero-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--ms-blue);
+      font-weight: 700;
+      padding: 12px 32px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 1rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .hero-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+
+    /* ── Layout ── */
+    main { max-width: 1100px; margin: 0 auto; padding: 56px 24px 80px; }
+
+    section { margin-bottom: 64px; }
+    section > h2 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--ms-blue);
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--ms-blue);
+      margin-bottom: 28px;
+    }
+
+    /* ── Cards ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,120,212,.06);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,120,212,.12); }
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+    }
+    .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 0.92rem; color: var(--text-sub); }
+
+    /* ── Step list ── */
+    .step-list { counter-reset: step; }
+    .step-item {
+      display: flex; gap: 16px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    }
+    .step-num {
+      min-width: 36px; height: 36px;
+      background: var(--ms-blue);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .step-text h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .step-text p  { font-size: 0.9rem; color: var(--text-sub); }
+
+    /* ── Subscription table ── */
+    .sub-table { width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.07); }
+    .sub-table th {
+      background: var(--ms-blue);
+      color: #fff;
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+    .sub-table td {
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    .sub-table tr:last-child td { border-bottom: none; }
+    .sub-table tr:nth-child(even) td { background: #f7fbff; }
+    .check { color: #107c10; font-weight: 700; }
+    .cross { color: #a80000; }
+
+    /* ── Use-case pills ── */
+    .pill-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pill {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .pill span { font-size: 1.1rem; }
+
+    /* ── Feature table ── */
+    .feat-table { width: 100%; border-collapse: collapse; }
+    .feat-table th {
+      background: #f0f7ff;
+      color: var(--ms-blue);
+      padding: 11px 16px;
+      text-align: left;
+      font-size: 0.9rem;
+      border-bottom: 2px solid var(--ms-blue);
+    }
+    .feat-table td { padding: 11px 16px; font-size: 0.9rem; border-bottom: 1px solid var(--border); }
+    .feat-table tr:hover td { background: #f7fbff; }
+
+    /* ── Info box ── */
+    .info-box {
+      background: #fffbe6;
+      border-left: 4px solid #f4c842;
+      border-radius: 6px;
+      padding: 16px 20px;
+      font-size: 0.92rem;
+      color: #5a4500;
+      margin-top: 16px;
+    }
+    .info-box strong { display: block; margin-bottom: 4px; }
+
+    /* ── Resources ── */
+    .resource-list { list-style: none; }
+    .resource-list li {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.95rem;
+    }
+    .resource-list li:last-child { border-bottom: none; }
+    .resource-list a { color: var(--ms-blue); text-decoration: none; font-weight: 500; }
+    .resource-list a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--ms-dark);
+      color: rgba(255,255,255,.65);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--ms-accent); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      header { padding: 48px 18px 42px; }
+      main   { padding: 36px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<header>
+  <div class="hero-badge">Microsoft Learn 기반 안내</div>
+  <h1>🤖 Microsoft Copilot Studio</h1>
+  <p>
+    로우코드(Low-code) 그래픽 툴로 누구나 손쉽게 AI 에이전트를 만들고,
+    테스트하고, 배포할 수 있는 Microsoft의 에이전트 빌딩 플랫폼입니다.
+  </p>
+  <a href="https://copilotstudio.microsoft.com" target="_blank" class="hero-btn">
+    🚀 Copilot Studio 시작하기
+  </a>
+</header>
+
+<main>
+
+  <!-- ══════════════════ 1. Copilot Studio란? ══════════════════ -->
+  <section>
+    <h2>📌 Copilot Studio란?</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon" style="background:#e6f2ff;">🧩</div>
+        <h3>로우코드 AI 플랫폼</h3>
+        <p>데이터 과학자나 개발자 없이도 그래픽 도구만으로 AI 에이전트를 설계·배포할 수 있습니다.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#f3e6ff;">🔗</div>
+        <h3>풍부한 커넥터 지원</h3>
+        <p>사전 구축된 커넥터 및 커스텀 커넥터를 통해 다양한 데이터 소스에 연결하고 정교한 로직을 오케스트레이션합니다.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#e6fff0;">🌐</div>
+        <h3>멀티채널 배포</h3>
+        <p>웹사이트, 모바일 앱, Facebook, Microsoft Teams 등 Azure Bot Service가 지원하는 모든 채널에 배포할 수 있습니다.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#fff3e6;">🤖</div>
+        <h3>생성형 AI 통합</h3>
+        <p>Azure OpenAI GPT 모델 기반의 자연어 이해(NLU)로 사용자 의도를 파악하고 자동으로 대화 응답을 생성합니다.</p>
+      </div>
+    </div>
+    <div class="info-box">
+      <strong>📎 접속 방법</strong>
+      독립형 웹 앱으로 <a href="https://copilotstudio.microsoft.com" target="_blank">https://copilotstudio.microsoft.com</a>에서 바로 이용할 수 있습니다.
+      2026년 6월 이후에는 Teams 앱을 통한 클래식 챗봇 생성이 종료되며, 웹 앱으로 리다이렉트됩니다.
+    </div>
+  </section>
+
+  <!-- ══════════════════ 2. 에이전트 주요 기능 ══════════════════ -->
+  <section>
+    <h2>⚙️ 에이전트(Agent)의 주요 기능</h2>
+    <p style="margin-bottom:20px;color:var(--text-sub);">
+      Copilot Studio의 에이전트는 복잡한 대화와 자율적인 작업 처리를 모두 지원하는 강력한 AI 도우미입니다.
+    </p>
+    <table class="feat-table">
+      <thead>
+        <tr>
+          <th>기능</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>🧠 공개·기업 지식 기반 질문 응답</td><td>공개 데이터 또는 기업 내부 문서와 연결하여 정확한 답변을 제공합니다.</td></tr>
+        <tr><td>🔧 통합 도구를 통한 작업 실행</td><td>Power Automate, API, 플러그인 등 다양한 도구를 호출해 실제 업무를 수행합니다.</td></tr>
+        <tr><td>💬 단순~복잡 대화 흐름 처리</td><td>간단한 FAQ부터 다단계 대화 시나리오까지 유연하게 처리합니다.</td></tr>
+        <tr><td>📡 다채널 배포</td><td>웹, 모바일, Teams, Facebook 등 다양한 채널에 동시 배포가 가능합니다.</td></tr>
+        <tr><td>🤖 내장 오케스트레이터</td><td>워크플로우 기반 에이전트와 완전 자율 AI 에이전트 모두 내장 오케스트레이터로 구성합니다.</td></tr>
+        <tr><td>🔄 자율형·대화형 에이전트</td><td>이벤트 트리거에 반응하는 자율 에이전트와 사용자와 대화하는 에이전트를 모두 지원합니다.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ══════════════════ 3. 에이전트 활용 사례 ══════════════════ -->
+  <section>
+    <h2>💼 에이전트 활용 사례</h2>
+    <div class="pill-grid">
+      <div class="pill"><span>🛒</span> 영업 지원 및 고객 문의 처리</div>
+      <div class="pill"><span>🏪</span> 영업 시간 및 매장 정보 안내</div>
+      <div class="pill"><span>🏥</span> 직원 건강·휴가 혜택 안내</div>
+      <div class="pill"><span>📊</span> 공공 보건 추적 정보 제공</div>
+      <div class="pill"><span>❓</span> 사내 자주 묻는 질문(FAQ) 자동 응답</div>
+      <div class="pill"><span>📅</span> 의료 서비스 예약 가상 비서</div>
+      <div class="pill"><span>🎮</span> 생성형 AI 게임 경험 제공</div>
+      <div class="pill"><span>🛠️</span> IT 헬프 데스크 자동화</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 4. 구독 플랜 비교 ══════════════════ -->
+  <section>
+    <h2>📋 구독 플랜 비교</h2>
+    <table class="sub-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>독립형(Standalone) 구독</th>
+          <th>Teams 플랜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>생성형 AI 기능</strong></td>
+          <td class="check">✅ 지원</td>
+          <td class="cross">❌ 미지원 (클래식 오케스트레이션)</td>
+        </tr>
+        <tr>
+          <td><strong>배포 채널</strong></td>
+          <td>웹, 모바일, Teams, Facebook 등 다채널</td>
+          <td>Microsoft Teams 전용</td>
+        </tr>
+        <tr>
+          <td><strong>주요 대상</strong></td>
+          <td>IT 관리자, 개발자, 고급 에이전트 제작자</td>
+          <td>조직 내부 직원, 빠른 배포 희망 사용자</td>
+        </tr>
+        <tr>
+          <td><strong>고급 개념 (엔티티·변수)</strong></td>
+          <td class="check">✅ 지원</td>
+          <td class="check">✅ 지원</td>
+        </tr>
+        <tr>
+          <td><strong>Microsoft 365 연동</strong></td>
+          <td>일부 M365 구독 별도 포함</td>
+          <td class="check">✅ 선택 M365 구독 포함</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ══════════════════ 5. 에이전트 만들기 단계 ══════════════════ -->
+  <section>
+    <h2>🚀 에이전트 만들기 단계</h2>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h4>에이전트 설명 (자연어)</h4>
+          <p>Copilot Studio에 원하는 에이전트를 자연어로 설명합니다. 지침, 트리거, 지식 소스, 도구 등을 텍스트로 입력하면 됩니다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h4>토픽(Topic) 생성</h4>
+          <p>고객이 물어볼 법한 질문과 대화 흐름을 토픽 단위로 정의합니다. NLU가 사용자 의도를 파악해 적합한 토픽으로 연결합니다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h4>지식 소스 및 도구 연결</h4>
+          <p>기업 문서, 외부 API, Power Automate 플로우 등을 연결해 에이전트가 실제 데이터를 활용하도록 구성합니다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <h4>에이전트 테스트</h4>
+          <p>빌트인 테스트 패널에서 에이전트와 실시간으로 대화하며 응답을 검증하고 토픽을 개선합니다.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-text">
+          <h4>다채널 배포 및 성능 분석</h4>
+          <p>준비가 완료되면 웹사이트, Teams, 모바일 앱 등 원하는 채널에 게시하고, 분석 대시보드에서 성능을 모니터링합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 6. VS Code 확장 기능 ══════════════════ -->
+  <section>
+    <h2>🖥️ VS Code 확장 기능</h2>
+    <p style="margin-bottom:20px;color:var(--text-sub);">
+      Copilot Studio용 Visual Studio Code 확장(GA)은 클라우드 기반 에이전트 개발과 로컬 IDE 워크플로우를 연결합니다.
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon" style="background:#e6f2ff;">📥</div>
+        <h3>에이전트 클로닝</h3>
+        <p>기존 Copilot Studio 에이전트를 로컬 워크스페이스로 다운로드하여 에이전트 정의를 직접 편집합니다.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#fff3e6;">📝</div>
+        <h3>YAML 편집</h3>
+        <p>IntelliSense 지원이 포함된 구조화된 YAML로 에이전트 구성요소를 편집합니다.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#e6fff0;">🔄</div>
+        <h3>동기화 작업</h3>
+        <p>로컬 워크스페이스와 Copilot Studio 사이의 변경 사항을 확인하고 적용합니다.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#f3e6ff;">🛠️</div>
+        <h3>컴포넌트 관리</h3>
+        <p>지식 소스, 도구, 토픽, 트리거, 스킬 등 에이전트 구성요소를 코드로 직접 수정합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 7. 학습 리소스 ══════════════════ -->
+  <section>
+    <h2>📚 Microsoft Learn 학습 리소스</h2>
+    <ul class="resource-list">
+      <li>
+        📖
+        <div>
+          <a href="https://learn.microsoft.com/microsoft-copilot-studio/fundamentals-what-is-copilot-studio" target="_blank">Copilot Studio 개요 (공식 문서)</a>
+          <div style="font-size:.85rem;color:var(--text-sub);">Copilot Studio의 기능, 에이전트·플로우 개념, 플랜 비교까지 전반적인 개요</div>
+        </div>
+      </li>
+      <li>
+        🎓
+        <div>
+          <a href="https://learn.microsoft.com/training/modules/power-virtual-agents-bots/" target="_blank">Microsoft Copilot Studio 시작하기 (트레이닝 모듈)</a>
+          <div style="font-size:.85rem;color:var(--text-sub);">10개 유닛 · 초급 · 에이전트 생성, 테스트, 성능 분석 실습</div>
+        </div>
+      </li>
+      <li>
+        ⚡
+        <div>
+          <a href="https://learn.microsoft.com/microsoft-copilot-studio/fundamentals-get-started" target="_blank">빠른 시작: 에이전트 만들기 및 배포</a>
+          <div style="font-size:.85rem;color:var(--text-sub);">독립형 구독으로 첫 에이전트를 만드는 단계별 가이드</div>
+        </div>
+      </li>
+      <li>
+        👥
+        <div>
+          <a href="https://learn.microsoft.com/microsoft-copilot-studio/fundamentals-get-started-teams" target="_blank">빠른 시작: Teams에 에이전트 게시</a>
+          <div style="font-size:.85rem;color:var(--text-sub);">Teams 플랜으로 클래식 에이전트를 만들고 Teams에 배포하는 가이드</div>
+        </div>
+      </li>
+      <li>
+        🔌
+        <div>
+          <a href="https://learn.microsoft.com/training/modules/get-started-copilot-studio-actions/" target="_blank">Copilot Studio 액션 소개 (트레이닝 모듈)</a>
+          <div style="font-size:.85rem;color:var(--text-sub);">7개 유닛 · Microsoft 365 Copilot 확장을 위한 액션 생성·테스트·게시</div>
+        </div>
+      </li>
+      <li>
+        🖥️
+        <div>
+          <a href="https://learn.microsoft.com/microsoft-copilot-studio/visual-studio-code-extension-overview" target="_blank">VS Code 확장 기능 개요</a>
+          <div style="font-size:.85rem;color:var(--text-sub);">로컬 IDE에서 Copilot Studio 에이전트를 개발하는 방법</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <p>
+    본 페이지의 내용은
+    <a href="https://learn.microsoft.com/microsoft-copilot-studio/" target="_blank">Microsoft Learn – Copilot Studio</a>
+    공식 문서를 기반으로 작성되었습니다.
+  </p>
+  <p style="margin-top:6px;">
+    © 2026 Microsoft Corporation. All rights reserved. &nbsp;|&nbsp;
+    <a href="https://github.com/seoulonline/gownet" target="_blank">GitHub: seoulonline/gownet</a>
+  </p>
+</footer>
+
+</body>
+</html>
